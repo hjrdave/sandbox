@@ -12,7 +12,6 @@ function TrebleGSM(){
                         <div className='col-12'>
                             <h3>Treble-GSM</h3>
                         </div>
-                        
                         <ContentPanel>
                            <p>foo</p>
                         </ContentPanel>

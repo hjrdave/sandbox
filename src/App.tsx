@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.scss';
 import { BrowserRouter as Router } from 'react-router-dom';
-import Header from './components/app-ui/header';
 import SideNav from './components/app-ui/side-nav';
 import Routes from './components/routes';
 

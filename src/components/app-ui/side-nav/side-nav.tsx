@@ -1,7 +1,6 @@
 import React from 'react';
 import './_side-nav.scss';
 import Nav from 'react-bootstrap/Nav';
-import WordFishLogo from '../../../assets/logo-wordfish-icon.svg';
 import {Link} from 'react-router-dom';
 
 function SideNav(){
