@@ -1,0 +1,21 @@
+@import '../variables';
+
+#side-nav{
+    background-color: $dark-2;
+    width: 200px;
+    min-height: 100vh;
+    a{
+        color: white;
+    }
+    .fa-map-pin{
+        font-size: 1.3rem;
+        padding-left: 3px;
+        margin-right: .3rem;
+    }
+    .nav-link{
+        transition: opacity .3;
+        &:hover{
+            opacity: .6;
+        }
+    }
+}

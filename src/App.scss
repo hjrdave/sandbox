@@ -1,0 +1,14 @@
+
+//Bootstrap 4
+@import '~bootstrap/scss/bootstrap.scss';
+
+//variables
+@import './components/app-ui/variables';
+
+.App{
+    background-color: $bk-color;
+
+    .page-container{
+        width: 100%;
+    }
+}

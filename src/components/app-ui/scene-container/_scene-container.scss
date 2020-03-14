@@ -1,0 +1,10 @@
+@import '~bootstrap/scss/_functions';
+@import '~bootstrap/scss/_variables';
+@import '~bootstrap/scss/mixins/breakpoints';
+@import '../variables';
+
+.scene-container{
+    background-size: cover;
+    background-repeat:no-repeat;
+    background-attachment: fixed;
+}
