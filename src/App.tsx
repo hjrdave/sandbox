@@ -8,7 +8,7 @@ import Routes from './components/routes';
 //Treble
 //import Treble from './archive/_treble-gsm';
 import Treble from 'treble-gsm';
-import Store from './_store';
+import Store from './Store';
 
 const App: React.FC = () => {
 
