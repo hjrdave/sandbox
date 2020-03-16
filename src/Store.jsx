@@ -1,7 +1,5 @@
 import {createStore} from 'treble-gsm';
 
-
-
 const Store = createStore([
 
     {
@@ -10,13 +8,9 @@ const Store = createStore([
             fruit: 'apple'
         },
         features: {
-            persist: true
-        }
-    },
-    {
-        action: 'updateCar',
-        state: {
-            car: 'bmw'
+           convert: (state) => {
+            return state + ' Juice';
+           }
         }
     },
     {
@@ -29,6 +23,9 @@ const Store = createStore([
         action: 'updateSport',
         state: {
             sport: 'baseball'
+        },
+        features: {
+           // call: () => alert('calling sport')
         }
     },
     {
