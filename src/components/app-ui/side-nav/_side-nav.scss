@@ -1,11 +1,11 @@
 @import '../variables';
 
 #side-nav{
-    background-color: $dark-2;
+    background-color: lighten(black, 8%);
     width: 200px;
     min-height: 100vh;
     a{
-        color: white;
+        color: rgba(255,255,255,.7);
     }
     .fa-map-pin{
         font-size: 1.3rem;

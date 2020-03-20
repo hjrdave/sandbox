@@ -1,9 +1,10 @@
 @import '../variables.scss';
 
 .content-panel{
+  
    .content-panel-container{
       width: 100%;
-      background-color: white!important;
+      background-color: lighten(black, 20%)!important;
       box-shadow: $shadow-1;
       border-radius: 5px 5px 5px 5px;
   
@@ -11,7 +12,7 @@
         padding: 1rem!important;
         background-color: white!important;
         border-radius: 5px 5px 0px 0px;
-        color: black!important;
+        color: white!important;
         p{
           font-size: $font-size-base + .2rem;
         }
@@ -25,9 +26,16 @@
 
       }
       .card-body{
+        color: rgba(255,255,255,.7)!important;
+        button{
+          margin: 5px;
+          color: inherit;
+          background-color: lighten(black, 10%);
+          border: lighten(black, 10%);
+        }
         form{
           label{
-            color: black!important
+            color: white!important
           }
         }
       }

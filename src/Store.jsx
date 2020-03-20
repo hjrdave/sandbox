@@ -8,8 +8,15 @@ const Store = createStore([
             fruit: 'apple'
         },
         features: {
+           persist: true,
+           call: (state) => alert(state),
+           check: (state) => {
+               if(state === 'Peach'){
+                   return true;
+               }
+           },
            convert: (state) => {
-            return state + ' Juice';
+            return `${state} Juice`;
            }
         }
     },
@@ -25,7 +32,8 @@ const Store = createStore([
             sport: 'baseball'
         },
         features: {
-           // call: () => alert('calling sport')
+            persist: true,
+            call: () => alert('calling sport')
         }
     },
     {
