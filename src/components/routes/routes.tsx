@@ -5,6 +5,8 @@ import {Switch} from '../utilities';
 //scenes
 import TrebleGSM from '../scenes/treble-gsm';
 import TrebleClassScene from '../scenes/treble-gsm-class';
+import UseFetch from '../scenes/use-fetch';
+import WPTemplate from '../scenes/wp-template';
 
 //groups
 
@@ -17,6 +19,8 @@ function Routes() {
       <Route exact path={`/`} component={TrebleGSM}/> 
       <Route exact path={`/treble-gsm`} component={TrebleGSM}/> 
       <Route exact path={`/treble-class`} component={TrebleClassScene}/> 
+      <Route exact path={`/use-fetch`} component={UseFetch}/> 
+      <Route exact path={`/:slug`} component={WPTemplate}/> 
     </Switch>
   );
 }

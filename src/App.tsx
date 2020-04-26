@@ -10,7 +10,14 @@ import Treble from 'treble-gsm';
 import Store from './Store';
 
 const App: React.FC = () => {
-
+  // React.useEffect(() => {
+  //   let links = Array.from(document.links);
+  //   let pageLinks = links.map((link) => {
+  //     return link.pathname;
+  //   });
+  //   console.log(pageLinks);
+  //   console.log(links);
+  // },[])
   return (
     <Treble store={Store}>
       <div className="App">

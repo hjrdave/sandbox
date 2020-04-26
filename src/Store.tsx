@@ -36,6 +36,16 @@ const Store = createStore([
         state: {
             age: 50
         }
+    },
+    {
+        action: 'updateAPIData',
+        state: {
+            apiData: []
+        },
+        features: {
+           //call: () => alert('render')
+         //  persist: true
+        }
     }
 
 ]);
