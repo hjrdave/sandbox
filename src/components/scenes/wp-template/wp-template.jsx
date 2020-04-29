@@ -1,8 +1,6 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import SceneContainer, {ContentColumn, ContentRow} from '../../app-ui/scene-container';
 import ContentPanel from '../../app-ui/content-panel';
-import ScopedComp from '../../app-ui/scoped-comp';
-import uniqid from 'uniqid';
 import { useFetch } from 'treble-gsm';
 
 function WPTemplate({match}){

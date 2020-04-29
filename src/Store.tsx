@@ -4,10 +4,10 @@ const Store = createStore([
     {
         action: 'updateTextColor',
          state: {
-             textColor: 'true'
+             textColor: true
          },
          features: {
-             persist: true
+             //persist: true
          }
      },
     {
@@ -45,6 +45,23 @@ const Store = createStore([
         features: {
            //call: () => alert('render')
          //  persist: true
+        }
+    },
+    {
+        action: 'listTest',
+        state: {
+            list: []
+        },
+        features:{
+            // convert: (value) => {
+            //     return {title: `Dave ${value.title}`, lede: `Dave ${value.lede}`}
+            // }
+        }
+    },
+    {
+        action: 'globalCache',
+        state: {
+            globalCache: []
         }
     }
 

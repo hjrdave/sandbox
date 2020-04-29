@@ -1,27 +1,42 @@
 import React from "react";
 import {Route} from "react-router-dom";
 import {Switch} from '../utilities';
+import {useTreble} from 'treble-gsm';
+import {TrebleRoute, trebleImport} from 'treble-fetch';
 
-//scenes
-import TrebleGSM from '../scenes/treble-gsm';
-import TrebleClassScene from '../scenes/treble-gsm-class';
-import UseFetch from '../scenes/use-fetch';
-import WPTemplate from '../scenes/wp-template';
+//dynamic imports
+const TrebleGSM = trebleImport(() => import('../scenes/treble-gsm'));
+const TrebleClassScene = trebleImport(() => import('../scenes/treble-gsm-class'));
+const UseFetch = trebleImport(() => import('../scenes/use-fetch'));
+const WPTemplate = trebleImport(() => import('../scenes/wp-template'));
 
-//groups
-
+const routes = [
+  { path: "/", exact: true, component: TrebleGSM},
+  { path: "/treble-gsm", exact: true, component: TrebleGSM },
+  { path: "/treble-class", exact: true, component: TrebleClassScene },
+  { path: "/use-fetch", exact: true, component: UseFetch },
+  { path: "/:slug", exact: true, component: WPTemplate }
+]
 
 function Routes() {
 
+  const [{globalCache}] = useTreble();
+
+  React.useEffect(() => {
+    console.log(globalCache);
+  },[globalCache]);
+
   return (
-    <Switch>
-      {/**Dashboard */}
-      <Route exact path={`/`} component={TrebleGSM}/> 
-      <Route exact path={`/treble-gsm`} component={TrebleGSM}/> 
-      <Route exact path={`/treble-class`} component={TrebleClassScene}/> 
-      <Route exact path={`/use-fetch`} component={UseFetch}/> 
-      <Route exact path={`/:slug`} component={WPTemplate}/> 
-    </Switch>
+    <TrebleRoute routes={routes}>
+      <Switch>
+        {/**Dashboard */}
+        {
+          routes.map(route => (
+            <Route exact key={route.path} path={route.path} component={route.component}/> 
+          ))
+        }
+      </Switch>
+  </TrebleRoute>
   );
 }
 
