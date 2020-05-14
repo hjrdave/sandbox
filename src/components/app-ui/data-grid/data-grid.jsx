@@ -29,9 +29,9 @@ export function Grid({ columns, rowData }) {
         <Header/>
         <Table striped bordered hover>
           <HeaderFields />
-            <Suspense fallback={<tr><td>Loading...</td></tr>}>
+            {/* <Suspense fallback={<tr><td>Loading...</td></tr>}> */}
               <RowData />
-            </Suspense>
+            {/* </Suspense> */}
         </Table>
       </div>
     </>

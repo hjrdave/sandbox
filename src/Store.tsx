@@ -1,4 +1,5 @@
 import {createStore} from 'treble-gsm';
+import {TrebleFetchStore} from 'treble-fetch';
 
 const Store = createStore([
     {
@@ -57,15 +58,13 @@ const Store = createStore([
             //     return {title: `Dave ${value.title}`, lede: `Dave ${value.lede}`}
             // }
         }
-    },
-    {
-        action: 'globalCache',
-        state: {
-            globalCache: []
-        }
     }
 
-]);
+],{
+    extendStore: [
+        TrebleFetchStore
+    ]
+});
 
 export default Store;
 

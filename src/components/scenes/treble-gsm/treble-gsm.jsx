@@ -7,6 +7,8 @@ import { useTreble, updateStore, clearPersist } from 'treble-gsm';
 
 function TrebleGSM() {
     const [{ fruit, sport, textColor, list }, dispatch] = useTreble();
+
+  
     
     const handleSubmit = (event) => {
         let form = event.currentTarget;

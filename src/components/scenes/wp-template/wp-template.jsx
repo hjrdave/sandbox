@@ -1,30 +1,35 @@
 import React from 'react';
 import SceneContainer, {ContentColumn, ContentRow} from '../../app-ui/scene-container';
 import ContentPanel from '../../app-ui/content-panel';
-import { useFetch } from 'treble-gsm';
+import { useFetch, useTreble } from 'treble-fetch';
+import './_wp-template.scss';
+import {matchPath} from 'react-router-dom';
 
-function WPTemplate({match}){
-    // const {response: postData, loading, error} = useFetch(`http://play.mediafish.io/wordpress/wp-json/wp/v2/posts?slug=${match.params.slug}`,{
-    //     default: true,
-    //     trigger: match.params
-    // });
+//console.log(window.location);
+
+function WPTemplate({trebleFetch, match}){
+
+    const {response: postData, loading, error} = useFetch(`http://play.mediafish.io/wordpress/wp-json/better-rest-endpoints/v1/post/${match.params.slug}`,{
+        cacheRes: false
+    });
+
     return(
         <>
             <SceneContainer>
                 <ContentColumn>
                     <ContentRow>
-                        {/* {
-                            (loading && postData.length === 0) ?
+                        {
+                            (loading) ?
                             <h3>Loading...</h3> :
                             <>
                                 <div className='col-12'>
-                                    <h3>{postData[0]?.title?.rendered}</h3>
+                                    <h3>{postData?.data?.title}</h3>
                                 </div>
                                 <ContentPanel>
-                                    <div dangerouslySetInnerHTML={ { __html: postData[0]?.content?.rendered } }></div>
+                                    <div dangerouslySetInnerHTML={ { __html: postData?.data?.content} }></div>
                                 </ContentPanel>
                             </>
-                        } */}
+                        }
                     </ContentRow>
                 </ContentColumn>
             </SceneContainer>
