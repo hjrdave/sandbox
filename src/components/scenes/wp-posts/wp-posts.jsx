@@ -10,9 +10,9 @@ function WPPosts() {
    // const [{ fruit, sport, textColor, apiData }, dispatch] = useTreble();
 
     const {response: wpPosts, loading, updating, error } = useFetch('http://play.mediafish.io/wordpress/wp-json/better-rest-endpoints/v1/posts',{
-        cacheRes: false
+       cacheRes: true
     }); 
-
+ 
     return (
         <>
             <SceneContainer>
@@ -41,8 +41,7 @@ function WPPosts() {
                                                 <h5>
                                                     <Link 
                                                         to={`posts/${slug}`}
-                                                        prefetch={[`http://play.mediafish.io/wordpress/wp-json/better-rest-endpoints/v1/post/${slug}`]}
-                                                        >
+                                                        prefetch={[`http://play.mediafish.io/wordpress/wp-json/better-rest-endpoints/v1/post/${slug}`]}>
                                                         {title}
                                                     </Link>
                                                 </h5>

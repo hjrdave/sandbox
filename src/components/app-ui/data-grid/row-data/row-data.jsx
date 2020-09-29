@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import uniqid from 'uniqid';
-import {updateStore} from "treble-gsm";
 import {useDataGridTreble} from '../Store';
 import Row from './row';
 
 export default function RowData() {
 
-  const [{columnsState, rowDataState}, dispatch] = useDataGridTreble();
+  const [{columnsState, rowDataState}, Store] = useDataGridTreble();
   const [lazyLoadRows, setLazyLoadRows] = useState(rowDataState);
 
   const handleLazyLoad = () => {
@@ -23,7 +22,7 @@ export default function RowData() {
         }
         else if(i === rowDataState?.length){
           setLazyLoadRows(rowItems);
-          updateStore('loadingState', false, dispatch);
+          Store.update('loadingState', false);
         }
       },0);
     })

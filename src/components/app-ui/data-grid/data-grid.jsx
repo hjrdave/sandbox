@@ -1,5 +1,5 @@
 import React, { useEffect, Suspense, lazy } from 'react';
-import { withTreble, updateStore } from 'treble-gsm';
+import { withTreble } from 'treble-gsm';
 import { Table } from 'react-bootstrap';
 import HeaderFields from './header-fields';
 import Header from './header';
@@ -10,17 +10,17 @@ const RowData = React.lazy(() => import('./row-data'));
 
 export function Grid({ columns, rowData }) {
 
-  //connects to DataGrid Store
-  const [{}, dispatch] = useDataGridTreble();
+  // //connects to DataGrid Store
+  const [{}, Store] = useDataGridTreble();
 
   //put prop data in DataGrid Store
   useEffect(() => {
-    updateStore('updateColumns', columns, dispatch);
+    Store.update('updateColumns', columns);
   }, []);
 
   //put row data into store every time it updates
   useEffect(() => {
-    updateStore('updateRowData', rowData, dispatch);
+    Store.update('updateRowData', rowData);
   },[rowData]);
 
   return (

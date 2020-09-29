@@ -14,6 +14,7 @@ function SideNav(){
                 <Nav defaultActiveKey="/treble-gsm" className="flex-column">
                     <Link to={'/treble-gsm'} className='nav-link'><i className="fas fa-code pr-3"></i>Treble-GSM</Link>
                     <Link to={'/treble-class'} className='nav-link'><i className="fas fa-code pr-3"></i>Treble-Class</Link>
+                    <Link to={'/history'} className='nav-link'><i className="fas fa-code pr-3"></i>History</Link>
                     <Link to={'/use-fetch'} prefetch={['https://jsonplaceholder.typicode.com/photos?_limit=1000']} className='nav-link'>
                         <i className="fas fa-code pr-3"></i>useFetch
                     </Link>

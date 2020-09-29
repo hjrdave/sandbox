@@ -6,11 +6,11 @@ import ListTwo from './list-two';
 
 export function ScopedCompContainer({listOneItems, listTwoItems}){
 
-    const [{}, dispatch] = useScopedCompTreble();
+    const [{}, Store] = useScopedCompTreble();
     //put props into Store
     useEffect(() => {
-        updateStore('updateListOne', listOneItems, dispatch);
-        updateStore('updateListTwo', listTwoItems, dispatch);
+        Store.update('updateListOne', listOneItems);
+        Store.update('updateListTwo', listTwoItems);
     },[]);
 
     return(

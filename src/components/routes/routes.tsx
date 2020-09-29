@@ -1,5 +1,6 @@
-import React, { Suspense } from "react";
-import {Route, Switch} from 'react-router-treble';
+import React from "react";
+import {useTreble} from 'treble-gsm';
+import {Route, Switch, useParams, useHistory} from 'react-router-treble';
 import {lazyImport} from 'treble-fetch';
 
 //dynamic imports
@@ -8,17 +9,41 @@ const TrebleClassScene = lazyImport(() => import('../scenes/treble-gsm-class'));
 const UseFetch = lazyImport(() => import('../scenes/use-fetch'));
 const WPPosts = lazyImport(() => import('../scenes/wp-posts'));
 const WPTemplate = lazyImport(() => import('../scenes/wp-template'));
+const History = lazyImport(() => import('../scenes/history'));
 
 function Routes() {
+  
+ 
+  const [{reactRouterHistory: history}] = useTreble();
+
+//  React.useEffect(() => {
+//     console.log(history);
+// },[history]); 
+
 
   return (
-      <Switch lazy>
-           <Route path='/' exact component={TrebleGSM}/>
-           <Route path='/treble-gsm' exact component={TrebleGSM}/>
-           <Route path='/treble-class' exact component={TrebleClassScene}/>
-           <Route path='/use-fetch' exact component={UseFetch}/>
-           <Route path='/posts' exact component={WPPosts}/>
-           <Route path='/posts/:slug' exact component={WPTemplate}/>  
+      <Switch>
+        <Route path='/' exact>
+          <TrebleGSM/>
+        </Route>
+        <Route path='/treble-gsm' exact>
+          <TrebleGSM/>
+        </Route>
+        <Route path='/treble-class' exact>
+          <TrebleClassScene/>
+        </Route>
+        <Route path='/use-fetch' exact>
+          <UseFetch/>
+        </Route>
+        <Route path='/posts' exact>
+          <WPPosts/>
+        </Route>
+        <Route path='/posts/:slug'>
+          <WPTemplate/>
+        </Route>
+        <Route path='/history' exact>
+          <History/>
+        </Route>
       </Switch>
   );
 }

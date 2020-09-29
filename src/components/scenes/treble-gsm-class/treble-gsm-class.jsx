@@ -9,7 +9,7 @@ class TrebleGSMClass extends Component{
    }
     
    render(){
-       const [{fruit, sport, car}, dispatch] = this.props.getTreble;
+       const [{fruit, sport, car}, Store] = this.props.getTreble;
        return(
         <>
             <SceneContainer>
@@ -22,9 +22,10 @@ class TrebleGSMClass extends Component{
                         <p>{fruit}</p> 
                         <p>{sport}</p> 
                         <p>{car}</p> 
-                        <button onClick={() => updateStore('updateFruit', 'Cherry', dispatch)}>Click Fruit</button>
-                        <button onClick={() => updateStore('updateSport', 'FooSport', dispatch)}>Click Sport</button>
-                        <button onClick={() => updateStore('updateCar', 'FooCar', dispatch)}>Click Car</button>
+                        <button onClick={() => Store.update('updateFruit', 'Cherry')}>Click Fruit</button>
+                        <button onClick={() => Store.update('updateSport', 'FooSport')}>Click Sport</button>
+                        <button onClick={() => Store.update('updateCar', 'FooCar')}>Click Car</button>
+                        <button onClick={() => Store.reset('updateCar')}>Reset Car</button>
                         </ContentPanel>
                     </ContentRow>
                 </ContentColumn>

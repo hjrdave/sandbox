@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.scss';
-import { BrowserRouter as Router} from 'react-router-treble';
-import {createBrowserHistory} from 'history';
+import { BrowserRouter as Router } from 'react-router-treble';
+import { createBrowserHistory } from 'history';
 import SideNav from './components/app-ui/side-nav';
 import Routes from './components/routes';
 
@@ -10,7 +10,7 @@ import Routes from './components/routes';
 import Treble from 'treble-gsm';
 import Store from './Store';
 
- 
+
 const App: React.FC = () => {
   return (
     <Treble store={Store}>
