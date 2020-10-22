@@ -3,9 +3,9 @@ import { Card, Form, Button } from 'react-bootstrap';
 import SceneContainer, { ContentColumn, ContentRow } from '../../app-ui/scene-container';
 import ContentPanel from '../../app-ui/content-panel';
 import uniqid from 'uniqid';
-import { useTreble, clearPersist, TUseTreble } from 'treble-gsm';
+import { useTreble } from 'treble-gsm';
 //import { useWorker } from "@koale/useworker";
-import { IStore } from '../../../Store';
+import { TStore } from '../../../Store';
 
 const fooBar = () => {
     let i = 0;
@@ -18,24 +18,41 @@ const fooBar = () => {
 
 function TrebleGSM() {
 
-    const [{ list }, Store]: TUseTreble<IStore> = useTreble();
+    const [{ list, listTest2 }, Store, Utils] = useTreble();
+    const { actions, actionKeys, stateKeys, storeData } = Utils;
+    const StoreItems = useTreble()[0];
 
-    //const [workerFn, controller] = useWorker(fooBar);
-
-    const StoreItems: IStore = useTreble()[0];
-    const StoreFoo = useTreble()[1];
+    const [history, setHistory] = React.useState({});
 
     // React.useEffect(() => {
-    //     console.log(Store.getStateKeys());
+    //     if (list) {
+    //         let previousState = storeData[6].state.list;
+    //         let hash = Object.keys(history).length;
+    //         setHistory({
+    //             ...history,
+    //             [hash]: StoreItems
+    //         });
 
-    // },[])
-    const fooBar2 = () => {
-        let i = 0;
-        while (i < 50000) {
-            console.log('running test');
-            i++;
-        }
-    };
+
+    //     }
+
+    // }, [list]);
+
+    // React.useEffect(() => {
+    //     Store.update('addSubcribeAPIToMiddleware', 'foo');
+    // }, []);
+
+    React.useEffect(() => {
+        // (Store as any).updateFoo('stringFoo', 'mooto')
+    }, [])
+
+    React.useEffect(() => {
+
+        //console.log(listTest2);
+
+
+    }, [listTest2])
+
 
     return (
         <>
@@ -50,21 +67,26 @@ function TrebleGSM() {
 
                                 <div className='col-6'>
                                     <h3 className='mb-4'>List Management (Object Array)</h3>
-                                    {/* <button onClick={() => Store.append('listTest',
-                                        {
-                                            level: uniqid(),
-                                            title: 'Billy Bro',
-                                            lede: 'Yo Bro Mo So Fo'
-                                        },
-                                    )}>Add Card</button> */}
-                                    <button onClick={() => Store.reset('listTest')}>Reset</button>
+                                    <button onClick={() => {
+                                        if (list) {
+                                            Store.update((actions as any).listTest,
+                                                [...list, {
+                                                    level: uniqid(),
+                                                    title: 'Billy Fo',
+                                                    lede: 'Yo Bro Mo So Fo'
+                                                }],
+                                            )
+
+                                        }
+                                    }}>Add Card</button>
+                                    <button onClick={() => Store.reset((actions as any).listTest)}>Reset</button>
                                     {/* <button onClick={() => workerFn()}>Run Web Worker</button> */}
                                 </div>
                                 <div className='col-4'>
                                     <h5>List</h5>
 
                                     {
-                                        list?.map((item) => {
+                                        list?.map((item: any) => {
                                             return (
                                                 <React.Fragment key={uniqid()}>
                                                     <Card className='mt-2'>
