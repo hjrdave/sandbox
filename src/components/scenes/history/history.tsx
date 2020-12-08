@@ -1,12 +1,12 @@
 import React from 'react';
 import SceneContainer, { ContentColumn, ContentRow } from '../../app-ui/scene-container';
 import ContentPanel from '../../app-ui/content-panel';
-import {useTreble} from 'treble-gsm';
+import { useStore } from '../../../Store';
 
 function History() {
-    const [{ sport, textColor, list, listTest2, listTest3 }] = useTreble();
-    //const [{fruit}, dispatch2] = useTrebleHistory();
-
+    const [{ sport, textColor, list, listTest2 }, Store, Util] = useStore();
+    const StoreItems = useStore()[0]
+    //const [{fruit}, dispatch2] = useTrebleHistory()
     // React.useEffect(() => {
     //     console.log(fruit);
     // },[fruit]);
@@ -20,7 +20,7 @@ function History() {
                             <h3>History</h3>
                         </div>
                         <ContentPanel>
-                           
+
                         </ContentPanel>
                     </ContentRow>
                 </ContentColumn>

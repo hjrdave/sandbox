@@ -4,8 +4,11 @@ import SceneContainer, { ContentColumn, ContentRow } from '../../app-ui/scene-co
 import ContentPanel from '../../app-ui/content-panel';
 import uniqid from 'uniqid';
 import { useTreble } from 'treble-gsm';
+import { useStore } from '../../../Store';
+import TrebleListManager from 'treble-list-manager';
+import TrebleCore from 'treble-gsm/lib/treble-core/treble-core'
+import ScopedComponent from './scoped-comp';
 //import { useWorker } from "@koale/useworker";
-import { TStore } from '../../../Store';
 
 const fooBar = () => {
     let i = 0;
@@ -18,44 +21,22 @@ const fooBar = () => {
 
 function TrebleGSM() {
 
-    const [{ list, listTest2 }, Store, Utils] = useTreble();
+    const [{ list, listTest2, trebleCoreData }, Store, Utils] = useStore();
     const { actions, actionKeys, stateKeys, storeData } = Utils;
-    const StoreItems = useTreble()[0];
+
 
     const [history, setHistory] = React.useState({});
 
-    // React.useEffect(() => {
-    //     if (list) {
-    //         let previousState = storeData[6].state.list;
-    //         let hash = Object.keys(history).length;
-    //         setHistory({
-    //             ...history,
-    //             [hash]: StoreItems
-    //         });
-
-
-    //     }
-
-    // }, [list]);
-
-    // React.useEffect(() => {
-    //     Store.update('addSubcribeAPIToMiddleware', 'foo');
-    // }, []);
 
     React.useEffect(() => {
-        // (Store as any).updateFoo('stringFoo', 'mooto')
+
+        // console.log(Store)
     }, [])
-
-    React.useEffect(() => {
-
-        //console.log(listTest2);
-
-
-    }, [listTest2])
 
 
     return (
         <>
+            <ScopedComponent />
             <SceneContainer>
                 <ContentColumn>
                     <ContentRow>
@@ -66,20 +47,22 @@ function TrebleGSM() {
                             <div className='row d-flex justify-content-between'>
 
                                 <div className='col-6'>
-                                    <h3 className='mb-4'>List Management (Object Array)</h3>
+                                    <h3 className='mb-4'>List Management</h3>
                                     <button onClick={() => {
                                         if (list) {
-                                            Store.update((actions as any).listTest,
-                                                [...list, {
-                                                    level: uniqid(),
+                                            Store.append(actions.listTest,
+                                                {
+                                                    level: '12943',
                                                     title: 'Billy Fo',
                                                     lede: 'Yo Bro Mo So Fo'
-                                                }],
+                                                }
                                             )
-
                                         }
                                     }}>Add Card</button>
-                                    <button onClick={() => Store.reset((actions as any).listTest)}>Reset</button>
+                                    {/* <button onClick={() => Store.update((actions as any).listTest, { key: 'foo', value: 'fee' })}>Add Card</button> */}
+                                    <button onClick={() => Store.reset('fooToo')}>Reset</button>
+                                    <button onClick={() => Store.run(Utils.actions.runStoreSideEffect)}>Run</button>
+                                    <button onClick={() => Store.clearPersist('listTest')}>Clear Cache</button>
                                     {/* <button onClick={() => workerFn()}>Run Web Worker</button> */}
                                 </div>
                                 <div className='col-4'>

@@ -1,7 +1,7 @@
 import React from "react";
-import {useTreble} from 'treble-gsm';
-import {Route, Switch, useParams, useHistory} from 'react-router-treble';
-import {lazyImport} from 'treble-fetch';
+import { useTreble } from 'treble-gsm';
+import { Route, Switch, useParams, useHistory } from 'react-router-treble';
+import { lazyImport } from 'treble-fetch';
 
 //dynamic imports
 const TrebleGSM = lazyImport(() => import('../scenes/treble-gsm'));
@@ -12,39 +12,39 @@ const WPTemplate = lazyImport(() => import('../scenes/wp-template'));
 const History = lazyImport(() => import('../scenes/history'));
 
 function Routes() {
-  
- 
-  const [{reactRouterHistory: history}] = useTreble();
 
-//  React.useEffect(() => {
-//     console.log(history);
-// },[history]); 
+
+  const [{ }] = useTreble();
+
+  //  React.useEffect(() => {
+  //     console.log(history);
+  // },[history]); 
 
 
   return (
-      <Switch>
-        <Route path='/' exact>
-          <TrebleGSM/>
-        </Route>
-        <Route path='/treble-gsm' exact>
-          <TrebleGSM/>
-        </Route>
-        <Route path='/treble-class' exact>
-          <TrebleClassScene/>
-        </Route>
-        <Route path='/use-fetch' exact>
-          <UseFetch/>
-        </Route>
-        <Route path='/posts' exact>
-          <WPPosts/>
-        </Route>
-        <Route path='/posts/:slug'>
-          <WPTemplate/>
-        </Route>
-        <Route path='/history' exact>
-          <History/>
-        </Route>
-      </Switch>
+    <Switch>
+      <Route path='/' exact>
+        <TrebleGSM />
+      </Route>
+      <Route path='/treble-gsm' exact>
+        <TrebleGSM />
+      </Route>
+      <Route path='/treble-class' exact>
+        <TrebleClassScene />
+      </Route>
+      <Route path='/use-fetch' exact>
+        <UseFetch />
+      </Route>
+      <Route path='/posts' exact>
+        <WPPosts />
+      </Route>
+      <Route path='/posts/:slug'>
+        <WPTemplate />
+      </Route>
+      <Route path='/history' exact>
+        <History />
+      </Route>
+    </Switch>
   );
 }
 

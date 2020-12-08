@@ -1,8 +1,12 @@
-import { createStore, TUseTreble, IMiddlewareData } from "treble-gsm";
+import { createStore, TrebleGSM, useTreble } from "treble-gsm";
 import { TrebleFetchStore } from "treble-fetch";
 import { ReactRouterStore } from "react-router-treble";
+import TrebleListManager, { TrebleLM } from 'treble-list-manager';
+import TreblePersist, { ITreblePersist } from 'treble-persist';
+import { isDoStatement } from "typescript";
+import { ITrebleCore } from "treble-gsm/lib/treble-core";
 
-export interface IState {
+interface IState {
   list?: {
     level: number;
     title: string;
@@ -14,9 +18,14 @@ export interface IState {
   sport?: string;
   fruit?: string;
   textColor?: boolean;
+  trebleCoreData?: any;
+  storeSideEffect?: null;
+  car?: string;
 }
 
-export interface IActions {
+interface IDispatchers extends TrebleLM.Dispatchers, ITreblePersist.Dispatchers, TrebleGSM.SubscribeAPI.Dispatchers { }
+
+interface IActions {
   "updateTextColor": string;
   "updateCar": string;
   "updateFruit": string;
@@ -25,10 +34,26 @@ export interface IActions {
   "updateAPIData": string;
   "listTest2": string;
   "listTest": string;
+  "runStoreSideEffect": string;
 }
+interface IFeatures<S> extends TrebleGSM.StoreFeatures<S>, ITreblePersist.StoreFeatures { };
 
-const Store = createStore(
+
+const Store = createStore<IState, IFeatures<IState>>(
   [
+    {
+      action: "runStoreSideEffect",
+      state: {
+        storeSideEffect: null
+      },
+      features: {
+        persist: false,
+        process: (data) => {
+          //data.storeItems[0].state.
+          return data.dispatchValue
+        }
+      }
+    },
     {
       action: "updateTextColor",
       state: {
@@ -47,18 +72,18 @@ const Store = createStore(
         fruit: "apple",
       },
       features: {
-        call: (subscribeData: IMiddlewareData<IState>) => console.log(subscribeData),
-        // check: (subscribeData) => {
-        //   console.log(subscribeData)
-        //   return true;
-        // },
-        // process: (subscribeData) => {
-        //   let newDispatchValue = `${subscribeData.dispatchValue}es are amazing!`;
-        //   console.log(subscribeData)
-        //   let i = 0;
-        //   return newDispatchValue;
-        // },
-        // callback: (subscribeData) => console.log(subscribeData)
+        persist: false,
+        process: (data) => {
+
+          return data
+        },
+
+        // persist: true,
+        // log: (data) => console.log(`logging... ${data.dispatchValue}`),
+        // check: (data) => { console.log(`checking... ${data.dispatchValue}`); return true },
+        // run: (data) => console.log(`running... ${data.dispatchValue}`),
+        // process: (data) => { console.log(`Converted dispatch value ${data.dispatchValue} to ${data.dispatchValue} Pie`); return `${data.dispatchValue} Pie` },
+        // callback: (data) => console.log(`callback... ${data.dispatchValue}`)
       },
     },
 
@@ -66,7 +91,7 @@ const Store = createStore(
       action: "updateSport",
       state: {
         sport: "baseball",
-      },
+      }
     },
     {
       action: "updateAge",
@@ -83,26 +108,12 @@ const Store = createStore(
     {
       action: "listTest",
       state: {
-        list: [
-          {
-            level: 67,
-            title: "Tom Hook",
-            lede: "Hook me a FooFish",
-          },
-        ],
+        list: [],
       },
       features: {
-        // call: (subscribeData) => console.log(subscribeData)
-        // call: (subscribeData) => {
-        //   console.log(subscribeData);
-        //   subscribeData.subscribeAPI.update('listTest2', [
-        //     {
-        //       level: 234234,
-        //       title: 'It works!!',
-        //       lede: 'Yo Bro Mo So Fo'
-        //     }
-        //   ])
-        // },
+        persist: true,
+        persistTimeout: 48,
+
       },
     },
     {
@@ -110,19 +121,20 @@ const Store = createStore(
       state: {
         listTest2: [],
       },
-    },
-    // {
-    //   action: "addSubcribeAPIToMiddleware",
-    //   state: {
-    //     TrebleSubscribeAPI: null
-    //   },
-    // },
+    }
   ],
   {
     extendStore: [TrebleFetchStore, ReactRouterStore],
+    modules: [
+      TrebleListManager,
+      TreblePersist
+    ]
   }
 );
 
-export type TStore = TUseTreble<IState, IActions>
+
+export const useStore = () => useTreble<IState, IDispatchers, IActions>();
 
 export default Store;
+
+

@@ -24,6 +24,7 @@
     "react-scripts": "^3.4.0",
     "react-window": "^1.8.5",
     "treble-fetch": "^1.0.0-alpha.22",
+    "treble-list-manager": "^1.0.0-alpha.1",
     "typescript": "^3.7.4",
     "uniqid": "^5.2.0"
   },
