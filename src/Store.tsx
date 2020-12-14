@@ -3,7 +3,6 @@ import { TrebleFetchStore } from "treble-fetch";
 import { ReactRouterStore } from "react-router-treble";
 import TrebleListManager, { TrebleLM } from 'treble-list-manager';
 import TreblePersist, { ITreblePersist } from 'treble-persist';
-import { isDoStatement } from "typescript";
 import { ITrebleCore } from "treble-gsm/lib/treble-core";
 
 interface IState {
@@ -21,9 +20,10 @@ interface IState {
   trebleCoreData?: any;
   storeSideEffect?: null;
   car?: string;
+  darkMode?: boolean;
 }
 
-interface IDispatchers extends TrebleLM.Dispatchers, ITreblePersist.Dispatchers, TrebleGSM.SubscribeAPI.Dispatchers { }
+interface IDispatchers extends TrebleLM.Dispatchers, ITreblePersist.Dispatchers, TrebleGSM.Dispatchers { }
 
 interface IActions {
   "updateTextColor": string;
@@ -35,11 +35,17 @@ interface IActions {
   "listTest2": string;
   "listTest": string;
   "runStoreSideEffect": string;
+  'toggleDarkMode': string;
 }
-interface IFeatures<S> extends TrebleGSM.StoreFeatures<S>, ITreblePersist.StoreFeatures { };
+interface IFeatures extends TrebleGSM.StoreFeatures<IState, IDispatchers, IFeatures>, ITreblePersist.StoreFeatures { };
 
+interface IMiddlewareData extends TrebleGSM.MiddlewareData<IState, IDispatchers, IFeatures> { };
 
-const Store = createStore<IState, IFeatures<IState>>(
+interface IReducerActions extends ITrebleCore.ReducerActions { };
+
+interface IUtilities extends TrebleGSM.Utilities<IActions, IReducerActions> { }
+
+const Store = createStore<IState, IFeatures>(
   [
     {
       action: "runStoreSideEffect",
@@ -47,11 +53,9 @@ const Store = createStore<IState, IFeatures<IState>>(
         storeSideEffect: null
       },
       features: {
-        persist: false,
-        process: (data) => {
-          //data.storeItems[0].state.
-          return data.dispatchValue
-        }
+        //persist: false,
+        run: () => console.log('Running...')
+        //process: (data) => data.dispatchValue
       }
     },
     {
@@ -72,18 +76,7 @@ const Store = createStore<IState, IFeatures<IState>>(
         fruit: "apple",
       },
       features: {
-        persist: false,
-        process: (data) => {
-
-          return data
-        },
-
-        // persist: true,
-        // log: (data) => console.log(`logging... ${data.dispatchValue}`),
-        // check: (data) => { console.log(`checking... ${data.dispatchValue}`); return true },
-        // run: (data) => console.log(`running... ${data.dispatchValue}`),
-        // process: (data) => { console.log(`Converted dispatch value ${data.dispatchValue} to ${data.dispatchValue} Pie`); return `${data.dispatchValue} Pie` },
-        // callback: (data) => console.log(`callback... ${data.dispatchValue}`)
+        run: (data) => console.log(data.dispatchValue)
       },
     },
 
@@ -111,8 +104,8 @@ const Store = createStore<IState, IFeatures<IState>>(
         list: [],
       },
       features: {
-        persist: true,
-        persistTimeout: 48,
+        //persist: true,
+        //persistTimeout: 48,
 
       },
     },
@@ -121,6 +114,12 @@ const Store = createStore<IState, IFeatures<IState>>(
       state: {
         listTest2: [],
       },
+    },
+    {
+      action: 'toggleDarkMode',
+      state: {
+        darkMode: false
+      }
     }
   ],
   {
@@ -133,7 +132,7 @@ const Store = createStore<IState, IFeatures<IState>>(
 );
 
 
-export const useStore = () => useTreble<IState, IDispatchers, IActions>();
+export const useStore = () => useTreble<IState, IDispatchers, IUtilities>();
 
 export default Store;
 

@@ -10,6 +10,7 @@ const UseFetch = lazyImport(() => import('../scenes/use-fetch'));
 const WPPosts = lazyImport(() => import('../scenes/wp-posts'));
 const WPTemplate = lazyImport(() => import('../scenes/wp-template'));
 const History = lazyImport(() => import('../scenes/history'));
+const TestDispatchers = lazyImport(() => import('../scenes/test-dispatchers'));
 
 function Routes() {
 
@@ -43,6 +44,9 @@ function Routes() {
       </Route>
       <Route path='/history' exact>
         <History />
+      </Route>
+      <Route path='/test-dispatchers' exact>
+        <TestDispatchers />
       </Route>
     </Switch>
   );

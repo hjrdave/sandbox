@@ -24,7 +24,6 @@ function TrebleGSM() {
     const [{ list, listTest2, trebleCoreData }, Store, Utils] = useStore();
     const { actions, actionKeys, stateKeys, storeData } = Utils;
 
-
     const [history, setHistory] = React.useState({});
 
 
